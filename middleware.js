@@ -9,7 +9,7 @@ export async function middleware(req) {
     // Only check authentication for admin routes
     if (pathname.startsWith('/admin-viral-mistry-12345/dashboard')) {
         const token = req.cookies.get('authToken')?.value;
-        console.log(token);
+       
 
         if (!token) {
             return NextResponse.redirect(new URL('/admin-viral-mistry-12345', req.url));

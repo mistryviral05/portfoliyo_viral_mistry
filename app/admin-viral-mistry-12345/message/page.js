@@ -1,11 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Menu, X, Home, FileText, Briefcase, MessageSquare, LogOut, Mail, Trash, ChevronDown, ChevronUp } from 'lucide-react'
+import { Menu, X, Home, FileText, Briefcase, MessageSquare, LogOut, Mail, Trash, ChevronDown, ChevronUp,Hammer } from 'lucide-react'
 import Link from 'next/link'
 import Logout from '@/components/Logout'
 import LoadingBar from 'react-top-loading-bar'
 import { usePathname } from 'next/navigation'
+
 
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -36,6 +37,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </NavItem>
         <NavItem icon={<Briefcase size={20} />} text="Manage Projects" href="/admin-viral-mistry-12345/projects/new" />
         <NavItem icon={<MessageSquare size={20} />} text="User Messages" href="/admin-viral-mistry-12345/message" />
+        <NavItem icon={<Hammer size={20} />} text="User Skills" href="/admin-viral-mistry-12345/skills" />
       </nav>
     </div>
   )
@@ -116,6 +118,8 @@ const MessagesHeader = ({ toggleSidebar }) => {
 
 const MessageItem = ({ name, email, message, date,_id }) => {
   const handelDelete = async (_id)=>{
+
+    console.log(_id)
     const res = await fetch('/api/message',{method:'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -141,10 +145,7 @@ const MessageItem = ({ name, email, message, date,_id }) => {
       </div>
       <p className="text-gray-700 mb-4">{message}</p>
       <div className="flex justify-end space-x-2">
-        <button className="flex items-center text-blue-500 hover:text-blue-700">
-          <Mail size={18} />
-          <span className="ml-1">Reply</span>
-        </button>
+        
         <button className="flex items-center text-red-500 hover:text-red-700">
           <Trash size={18} />
           <span className="ml-1" onClick={()=>handelDelete(_id)}>Delete</span>
@@ -155,6 +156,7 @@ const MessageItem = ({ name, email, message, date,_id }) => {
 }
 
 export default function ManageMessages() {
+  
 
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [messages, setMessages] = useState([])
@@ -201,7 +203,9 @@ export default function ManageMessages() {
 
 
   return (
+    
     <div className="flex h-screen bg-gray-100">
+ 
       <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -237,7 +241,7 @@ export default function ManageMessages() {
               <p className="text-gray-600">No messages available</p>
             )}
 
-            <div className="mt-8 flex justify-center">
+            {/* <div className="mt-8 flex justify-center">
               <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                 <a href="#" className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
                   Previous
@@ -256,7 +260,7 @@ export default function ManageMessages() {
                 </a>
               </nav>
 
-            </div>
+            </div> */}
           </div>
 
         </main>

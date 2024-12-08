@@ -3,43 +3,44 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Menu, Home, FileText, Briefcase, MessageSquare, ChevronDown, ChevronUp, Edit, Trash, Upload } from 'lucide-react'
+import { Menu, Home, FileText, Briefcase, MessageSquare, ChevronDown, ChevronUp, Edit, Trash, Upload,Hammer } from 'lucide-react'
 import { marked } from 'marked'
 import { usePathname } from 'next/navigation'
 import LoadingBar from 'react-top-loading-bar'
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     return (
-        <div className={`fixed inset-y-0 left-0 z-30 w-64 bg-gray-900 text-white transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
-            <div className="flex items-center justify-center h-16 bg-gray-800">
-                <span className="text-xl font-semibold">Admin Dashboard</span>
-            </div>
-            <nav className="mt-8">
-                <NavItem icon={<Home size={20} />} text="Dashboard" href="/admin-viral-mistry-12345/dashboard" />
-                <NavItem icon={<FileText size={20} />} text="Manage Blogs" href="#">
-                    <li>
-                        <Link
-                            href="/admin-viral-mistry-12345/blogs/new"
-                            className="block px-6 py-2 text-gray-300 hover:bg-gray-800 hover:text-white"
-                        >
-                            New Blog
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            href="/admin-viral-mistry-12345/blogs/edit"
-                            className="block px-6 py-2 text-gray-300 hover:bg-gray-800 hover:text-white"
-                        >
-                            Edit Blog
-                        </Link>
-                    </li>
-                </NavItem>
-                <NavItem icon={<Briefcase size={20} />} text="Manage Projects" href="/admin-viral-mistry-12345/projects/new" />
-                <NavItem icon={<MessageSquare size={20} />} text="User Messages" href="/admin-viral-mistry-12345/message" />
-            </nav>
+      <div className={`fixed inset-y-0 left-0 z-30 w-64 bg-gray-900 text-white transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
+        <div className="flex items-center justify-center h-16 bg-gray-800">
+          <span className="text-xl font-semibold">Admin Dashboard</span>
         </div>
+        <nav className="mt-8">
+          <NavItem icon={<Home size={20} />} text="Dashboard" href="/admin-viral-mistry-12345/dashboard" />
+          <NavItem icon={<FileText size={20} />} text="Manage Blogs" href="#">
+            <li>
+              <Link
+                href="/admin-viral-mistry-12345/blogs/new"
+                className="block px-6 py-2 text-gray-300 hover:bg-gray-800 hover:text-white"
+              >
+                New Blog
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/admin-viral-mistry-12345/blogs/edit"
+                className="block px-6 py-2 text-gray-300 hover:bg-gray-800 hover:text-white"
+              >
+                Edit Blog
+              </Link>
+            </li>
+          </NavItem>
+          <NavItem icon={<Briefcase size={20} />} text="Manage Projects" href="/admin-viral-mistry-12345/projects/new" />
+          <NavItem icon={<MessageSquare size={20} />} text="User Messages" href="/admin-viral-mistry-12345/message" />
+          <NavItem icon={<Hammer size={20} />} text="User Skills" href="/admin-viral-mistry-12345/skills" />
+        </nav>
+      </div>
     )
-}
+  }
 
 const NavItem = ({ icon, text, href, children }) => {
     const [isOpen, setIsOpen] = useState(false);

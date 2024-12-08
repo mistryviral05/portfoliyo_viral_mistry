@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
+import Typed from 'typed.js';
+
+
 
 
 
@@ -90,16 +93,47 @@ const SkillBar = ({ skill, level }) => {
 }
 
 export default function Home() {
-
+  const el = useRef(null);
+  const [skills, setSkills] = useState([])
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [loading, setLoading] = useState(false);
+
+  // const skill = [
+  //   {name:"Html",level:90 },
+  //   {name:"css",level:90 },
+  //   {name:"Javascript",level:90 },
+  //   {name:"React",level:90 },
+
+  // ];
+
+
+
+  useEffect(() => {
+
+    const handleFetchSkill = async () => {
+      const res = await fetch('/api/skill', { method: 'GET' })
+      const data = await res.json();
+      console.log(data)
+      setSkills(data);
+    }
+    const typed = new Typed(el.current, {
+      strings: [' I &apos; m a passionate developer creating amazing web experiences'],
+      typeSpeed: 50,
+    });
+
+    handleFetchSkill();
+    return () => {
+      // Destroy Typed instance during cleanup to stop animation
+      typed.destroy();
+    };
+  }, []);
 
 
 
   const handlechange = (e) => {
 
     setForm({ ...form, [e.target.name]: e.target.value })
-    
+
     // console.log(form)
 
 
@@ -109,6 +143,9 @@ export default function Home() {
     e.preventDefault();
     setLoading(true); // Prevent default form submission
     // Check the form data in the console
+
+
+
 
     try {
       // Send the form data as JSON
@@ -127,16 +164,16 @@ export default function Home() {
 
         throw new Error(`HTTP error! status: ${res.status}`);
       }
-      else{
-
-     
+      else {
 
 
 
-      const responseData = await res.json(); // Handle response from the server
-      alert('Thanks for message I will contact you !.....');
-      setForm({ name: '', email: '', message: '' })
-      setLoading(false)
+
+
+        const responseData = await res.json(); // Handle response from the server
+        alert('Thanks for message I will contact you !.....');
+        setForm({ name: '', email: '', message: '' })
+        setLoading(false)
       }
     } catch (error) {
       alert('Error submitting form:', error.message, error);
@@ -146,82 +183,88 @@ export default function Home() {
   return (
     <>
       <main className="min-h-screen bg-white">
-        <AnimatedSection id="home" className="h-screen flex items-center justify-center bg-gradient-to-b from-white to-amber-50 relative overflow-hidden">
-          <div className="text-center z-10">
-            <h1 className="text-5xl md:text-7xl font-bold mb-4 animate-fadeIn">
-              Welcome to My Portfolio
+        <AnimatedSection
+          id="home"
+          className="h-screen flex flex-col md:flex-row items-center justify-around bg-gradient-to-b from-white to-amber-50 relative overflow-hidden px-4 md:px-8"
+        >
+          {/* Text Content */}
+          <div className="z-10 text-center md:text-left">
+            <h1 className="text-4xl md:text-7xl font-bold mb-4 animate-fadeIn">
+                Hey I am Viral Mistry
             </h1>
-            <p className="text-xl md:text-2xl mb-8 animate-fadeIn animation-delay-200">
-              I'm a passionate developer creating amazing web experiences
+
+            {/* Typed.js Content */}
+            <p className="text-md md:text-2xl p-2 w-full mb-8 animate-fadeIn animation-delay-200">
+              <span ref={el} className="typed-text"></span>
             </p>
-           <a href='/project'> <button className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-full transition-colors duration-300 animate-fadeIn animation-delay-400">
-              Explore My Work
-            </button></a>
+            <div className='flex gap-4 flex-wrap justify-center md:justify-start '>
+            <Link href="/project">
+              <button className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-full transition-colors duration-300 animate-fadeIn animation-delay-400">
+                Explore My Work
+              </button>
+            </Link>
+            <Link href="/blog">
+              <button className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-full transition-colors duration-300 animate-fadeIn animation-delay-400">
+                Explore My Blogs
+              </button>
+            </Link>
+            </div>
           </div>
+
+          {/* Background Overlay */}
           <div className="absolute inset-0 flex items-center justify-center opacity-10">
-            <div className="w-full h-full  bg-cover bg-center animate-pulse"></div>
+            <div className="w-full h-full bg-cover bg-center animate-pulse"></div>
+          </div>
+
+          {/* Image Section */}
+          <div className="hidden md:block mt-6 md:mt-0">
+            <Image
+              src="/Coder.webp"
+              alt="Portfolio Showcase"
+              width={400}
+              height={400}
+              className="object-cover rounded-lg shadow-lg"
+            />
           </div>
         </AnimatedSection>
+
+
 
         <AnimatedSection id="about" className="py-20 bg-gray-50">
           <div className="container mx-auto px-4">
             <h2 className="text-4xl font-bold mb-8 text-center text-gray-800">About Me</h2>
             <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="md:w-1/2 mb-8 md:mb-0">
-                <Image src="/viral_wallpaper.jpg" alt="Developer" width={400} height={400} className="rounded-full mx-auto" />
+                <Image src="/viral_wallpaper.jpg" alt="Developer" width={300} height={400} className="rounded-xl mx-auto" />
               </div>
               <div className="md:w-1/2">
                 <p className="text-lg mb-4 text-gray-600">
-                  I'm a skilled web developer with expertise in JavaScript, React, and Next.js.
+                  I &apos; m a skilled web developer with expertise in JavaScript, React, and Next.js.
                   I love creating responsive and user-friendly web applications that solve real-world problems.
                 </p>
                 <p className="text-lg mb-6 text-gray-600">
-                  When I'm not coding, you can find me exploring new technologies, contributing to open-source projects,
+                  When I&apos;m not coding, you can find me exploring new technologies, contributing to open-source projects,
                   or enjoying outdoor activities.
                 </p>
-                <div className="space-y-4">
 
-                  <SkillBar skill="HTML" level={90} />
-                  <SkillBar skill="CSS" level={90} />
-                  <SkillBar skill="JavaScript" level={85} />
-                  <SkillBar skill="React" level={70} />
-                  <SkillBar skill="Next.js" level={70} />
-                  <SkillBar skill="Node.js" level={80} />
-                </div>
+
+                {skills.map((skil, index) => {
+                  return <div key={index} className="space-y-4">
+                    <SkillBar skill={skil.name} level={skil.level} />
+
+
+                  </div>
+                })}
+
+
               </div>
             </div>
           </div>
         </AnimatedSection>
 
-        {/* <AnimatedSection id="projects" className="py-20 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold mb-8 text-center text-gray-800">My Projects</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                { title: "E-commerce Platform", description: "A full-stack solution with Next.js and Stripe integration." },
-                { title: "Task Management App", description: "React-based app with drag-and-drop functionality and real-time updates." },
-                { title: "AI-powered Chatbot", description: "Intelligent chatbot using natural language processing and machine learning." }
-              ].map((project, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-50 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                >
-                  <h3 className="text-2xl font-semibold mb-4 text-gray-800">{project.title}</h3>
-                  <p className="mb-4 text-gray-600">{project.description}</p>
-                  <a href="#" className="text-amber-600 hover:text-amber-700 transition-colors inline-flex items-center">
-                    Learn More
-                    <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M5 12h14"></path>
-                      <path d="M12 5l7 7-7 7"></path>
-                    </svg>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-        </AnimatedSection> */}
+      
 
-     
+
 
         <AnimatedSection id="contact" className="py-20 bg-gray-50">
           <div className="container mx-auto px-4">

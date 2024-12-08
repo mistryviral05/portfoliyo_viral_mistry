@@ -78,7 +78,7 @@ export async function DELETE(req) {
        await connectDB();
    const {_id} =await req.json();
    console.log(_id)
-        const id = await Project.findOneAndDelete(_id)
+        const id = await Project.findOneAndDelete({_id})
         return new Response(
             JSON.stringify({message:'project succesfuly deleted'}),
             { status: 200 }

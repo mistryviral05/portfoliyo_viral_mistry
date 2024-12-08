@@ -25,8 +25,10 @@ export async function DELETE(req) {
   try {
      await connectDB();
  const {_id} =await req.json();
- console.log(_id)
-      const id = await Connect.findOneAndDelete(_id)
+ 
+
+      const id = await Connect.findOneAndDelete({_id})
+      
       return new Response(
           JSON.stringify({message:'message succesfuly deleted'}),
           { status: 200 }

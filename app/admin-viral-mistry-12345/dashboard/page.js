@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Menu, X, Home, FileText, Briefcase, MessageSquare, LogOut, ChevronDown, ChevronUp } from 'lucide-react'
+import { Menu, X, Home, FileText, Briefcase, MessageSquare, LogOut, ChevronDown, ChevronUp,Hammer } from 'lucide-react'
 import Logout from '@/components/Logout'
 import { usePathname } from 'next/navigation'
 import LoadingBar from 'react-top-loading-bar'
@@ -37,6 +37,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </NavItem>
         <NavItem icon={<Briefcase size={20} />} text="Manage Projects" href="/admin-viral-mistry-12345/projects/new" />
         <NavItem icon={<MessageSquare size={20} />} text="User Messages" href="/admin-viral-mistry-12345/message" />
+        <NavItem icon={<Hammer size={20} />} text="User Skills" href="/admin-viral-mistry-12345/skills" />
       </nav>
     </div>
   )
@@ -132,11 +133,12 @@ const DashboardCard = ({ title, count, linkText, href }) => {
 }
 
 export default function AdminDashboard() {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+
   const [recentActivities, setRecentActivities] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [message, setMessage] = useState([])
   const [project, setProject] = useState([])
+  const [sidebarOpen, setSidebarOpen] = useState(false)
  
   useEffect(() => {
     

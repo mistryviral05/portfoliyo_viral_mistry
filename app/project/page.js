@@ -39,7 +39,7 @@ const AnimatedSection = ({ children, className, id }) => {
     )
   }
 
-const page = () => {
+const Page = () => {
     const [projects, setProjects] = useState([])
 
     useEffect(() => {
@@ -91,4 +91,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

@@ -21,7 +21,7 @@ export async function POST(request) {
     if (password !== adminPassword) {
         return NextResponse.json({ message: 'Invalid username or password' }, { status: 401 });
     }
-    const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
+    const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '2h' });
     
     return NextResponse.json({ token }, { status: 200 });
 

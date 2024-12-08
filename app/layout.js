@@ -1,4 +1,5 @@
 import localFont from "next/font/local";
+
 import "./globals.css";
 
 import NavbarWrapper from "@/components/NavbarWrapper";
@@ -32,7 +33,7 @@ export default function RootLayout({ children }) {
         className={` bg-white text-gray-800`}
       >
        <NavbarWrapper/>
-        {children}
+       {children}
       </body>
     </html>
   );

@@ -10,7 +10,9 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import { notFound } from 'next/navigation';
 import rehypePrettyCode from "rehype-pretty-code";
-import { transformerCopyButton } from '@rehype-pretty/transformers'
+import CopyButton from '@/components/CopyButton';
+
+// import { transformerCopyButton } from '@rehype-pretty/transformers'
 
 // Update the function signature to await params
 export default async function BlogPost({ params }) {
@@ -32,13 +34,9 @@ export default async function BlogPost({ params }) {
     .use(rehypeDocument)
     .use(rehypePrettyCode, {
       theme: "ayu-dark",
-      transformers: [
-        transformerCopyButton({
-          visibility: 'always',
-          feedbackDuration: 3_000,
-        }),
-      ],
+     
     })
+    
     .use(rehypeFormat)
     .use(rehypeStringify)
 
