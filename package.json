@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/react": "^3.2.3",
-    "@emotion/react": "^11.13.5",
     "@rehype-pretty/transformers": "^0.13.2",
     "bcrypt": "^5.1.1",
     "fs": "^0.0.1-security",
