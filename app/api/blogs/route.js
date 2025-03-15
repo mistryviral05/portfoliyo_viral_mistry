@@ -1,3 +1,4 @@
+import FetchBlogPost from '@/components/FetchBlogPost';
 import fs from 'fs';
 import path from 'path';
 
@@ -27,3 +28,15 @@ export async function POST(req) {
   }
 }
 
+
+export async function GET(req) {
+  try {
+    const blogPosts = FetchBlogPost();
+    return new Response(JSON.stringify({ message: blogPosts }), { status: 200 });
+    
+  } catch (error) {
+    console.log("The error is: ", error);
+    return new Response(JSON.stringify({ message: 'Error fetching file' }), { status: 500 });
+  }
+  
+}

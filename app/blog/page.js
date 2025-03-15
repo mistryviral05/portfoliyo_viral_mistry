@@ -1,12 +1,12 @@
+"use client"
 
-
-
-import FetchBlogPost from '@/components/FetchBlogPost'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 
 
-const blogPosts = FetchBlogPost();
+// const blogPosts = FetchBlogPost();
+
 
 
 
@@ -19,6 +19,7 @@ export default function Blog() {
   //   const [searchTerm, setSearchTerm] = useState('')
   //   const [currentPage, setCurrentPage] = useState(1)
   //   const [selectedCategory, setSelectedCategory] = useState('All')
+  const [blogPosts, setblogPosts] = useState([])
 
   //   const filteredPosts = blogPosts.filter(post => 
   //     (post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -33,6 +34,22 @@ export default function Blog() {
   //   )
 
   // const categories = ['All', ...new Set(blogPosts.map(post => post.category))]
+  useEffect(() => {
+  
+    const handleFetchBlogpost = async()=>{
+      try {
+          const res = await fetch("/api/blogs/",{method:"GET"})
+           if(res.ok){
+            const {message}= await res.json();
+            setblogPosts(message)
+           }
+      } catch (error) {
+         console.log(error)
+      }
+  
+    }
+    handleFetchBlogpost()
+  }, [])
 
   return (
     <div className="min-h-screen bg-gray-50 pt-16">
